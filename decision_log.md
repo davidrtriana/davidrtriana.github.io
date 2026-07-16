@@ -137,3 +137,130 @@ updates. Revisit once `@astrojs/check` adds TypeScript 7 support.
 #### Status
 
 Adopted.
+
+---
+
+## 2026-07-16: One component per homepage section
+
+#### Context
+
+Phase 1 needed to build out Hero, About, Projects, Links, and Contact as
+real content blocks rather than one long template.
+
+#### Decision
+
+Each section is its own component in `src/components/` (`Hero.astro`,
+`About.astro`, `Projects.astro`, `Links.astro`, `Contact.astro`), composed
+in `src/pages/index.astro` inside a shared `BaseLayout`. Each renders a
+semantic `<section>` with an `aria-label` and its own heading.
+
+#### Alternatives considered
+
+- One long `index.astro` with all markup inline. Rejected: harder to keep
+  track of as Phase 2 through 4 add styling, motion, and playable demos to
+  individual sections, and harder to review in a PR diff.
+
+#### Status
+
+Adopted.
+
+---
+
+## 2026-07-16: Projects as a typed data file, not hardcoded markup
+
+#### Context
+
+The Projects section needs a design-breakdown block per project (mechanic,
+system, what I'd change), and more projects will be added later.
+
+#### Decision
+
+`src/data/projects.ts` exports a `Project` type and a `projects` array.
+`ProjectCard.astro` renders one entry; `Projects.astro` maps over the array.
+Adding a project later means editing data, not markup.
+
+#### Alternatives considered
+
+- Hardcoding each project card directly in `Projects.astro`. Rejected: mixes
+  content with markup, and makes the shape of a "project" implicit instead
+  of a type Astro can check.
+
+#### Status
+
+Adopted.
+
+---
+
+## 2026-07-16: No contact form
+
+#### Context
+
+The Contact section needs a way to reach David without adding a backend.
+
+#### Decision
+
+A `mailto:` link plus the social links (GitHub, LinkedIn, itch.io), no
+form.
+
+#### Alternatives considered
+
+- A contact form. Rejected: a static site with no backend has nowhere to
+  send form submissions without a third-party service, which is more
+  moving parts than a `mailto:` link justifies for a single contact point.
+
+#### Status
+
+Adopted.
+
+---
+
+## 2026-07-16: Meta description, canonical URL, and Open Graph/Twitter cards
+
+#### Context
+
+Hiring managers and design leads will find this site through a shared
+link as often as a direct visit, so the link preview matters.
+
+#### Decision
+
+`BaseLayout.astro` takes `title`, `description`, and an optional `ogImage`
+prop, and renders a canonical link plus Open Graph and Twitter card tags
+from them. `og:image` points at `/og-image.png` and declares the intended
+1200x630 dimensions, but that file doesn't exist yet. It needs to be added
+to `public/` before the preview image will actually render.
+
+#### Alternatives considered
+
+- Skipping social preview tags until real content and a real image exist.
+  Rejected: the layout is the right place to wire this up once, and doing
+  it now means every future page gets it for free.
+
+#### Status
+
+Adopted. Follow-up: add `public/og-image.png` (1200x630).
+
+---
+
+## 2026-07-16: Accessibility landmarks and skip link
+
+#### Context
+
+The page needed real landmark structure, not just visual sections.
+
+#### Decision
+
+`BaseLayout.astro` uses `<header>`, `<main>`, and `<footer>` landmarks, a
+`<nav aria-label="Primary">` for section links, and a skip-to-content link
+as the first focusable element in `<body>`, visible on focus via
+`src/styles/global.css`. Each homepage section is a `<section>` with an
+`aria-label` and a heading.
+
+#### Alternatives considered
+
+- Skipping the skip link until visual design lands in Phase 2. Rejected:
+  it's a structural, not visual, concern, and it's easier to get right
+  once than to retrofit after the page has more interactive content.
+
+#### Status
+
+Adopted.

@@ -1,0 +1,23 @@
+---
+import { socialLinks } from "../data/socialLinks";
+
+const otherLinks = [
+  { label: "Channel (placeholder, add URL)", href: "#" },
+  { label: "Studio (placeholder, add URL)", href: "#" },
+];
+
+const links = [...otherLinks, ...socialLinks];
+---
+
+<section id="links" aria-label="Links">
+  <h2>Links</h2>
+  <ul>
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

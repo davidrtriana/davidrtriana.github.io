@@ -1,17 +1,20 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Links from "../components/Links.astro";
+import Contact from "../components/Contact.astro";
 
+const title = "David Riverat | Systems Designer";
+const description =
+  "David Riverat is a systems designer with a data-engineering background: game economies, live-ops, and player analytics grounded in real systems.";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>David Riverat &mdash; Portfolio</title>
-  </head>
-  <body>
-    <h1>Hello</h1>
-    <p>Phase 0: pipeline check. Real content coming in Phase 1.</p>
-  </body>
-</html>
+<BaseLayout title={title} description={description}>
+  <Hero />
+  <About />
+  <Projects />
+  <Links />
+  <Contact />
+</BaseLayout>
