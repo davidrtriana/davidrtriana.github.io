@@ -1,0 +1,40 @@
+/* Minimal, unstyled-by-design baseline for Phase 1. Design tokens and visual
+   styling land in Phase 2 (see decision_log.md). This file exists only to
+   keep the page readable and to support the skip-link a11y pattern. */
+
+:root {
+  color-scheme: light dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 60ch;
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: Canvas;
+  color: CanvasText;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}

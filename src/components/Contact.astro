@@ -1,0 +1,26 @@
+---
+import { socialLinks } from "../data/socialLinks";
+
+// Placeholder address, replace with a real one before launch.
+const email = "hello@example.com";
+---
+
+<section id="contact" aria-label="Contact">
+  <h2>Contact</h2>
+  <p>
+    <a href={`mailto:${email}`}>{email}</a> (placeholder email, replace with a real
+    address)
+  </p>
+  <ul>
+    {
+      socialLinks.map((link) => (
+        <li>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <p>
+    <a href="/cv.pdf">Download CV</a> (placeholder link, add the real file to public/cv.pdf)
+  </p>
+</section>
